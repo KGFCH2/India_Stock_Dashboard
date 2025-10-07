@@ -26,9 +26,15 @@ A beautiful, real-time stock market dashboard for Indian stocks with glassmorphi
 
 ## Installation & Setup 🚀
 
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package installer)
+
+### Quick Start
+
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/KGFCH2/India_Stock_Dashboard.git
    cd India_Stock_Dashboard
    ```
 
@@ -49,13 +55,37 @@ A beautiful, real-time stock market dashboard for Indian stocks with glassmorphi
 
 4. **Open your browser** and navigate to `http://localhost:8501`
 
+### Alternative Installation
+You can also use the startup script which will automatically install dependencies:
+```bash
+python run_dashboard.py
+```
+
 ## Project Structure 📁
 
 ```
 India_Stock_Dashboard/
-│
-├── main.py                 # Main application file
-├── requirements.txt        # Python dependencies
+├── .streamlit/
+│   └── config.toml         # Streamlit configuration
+├── components/             # Core application components
+│   ├── auth.py            # Authentication system
+│   ├── ui_components.py   # UI components and styling
+│   └── __init__.py
+├── pages/                 # Dashboard pages
+│   ├── dashboard_pages.py # Additional dashboard pages
+│   └── __init__.py
+├── utils/                 # Utility modules
+│   ├── stock_data.py     # Stock data fetching and processing
+│   ├── prediction_model.py # ML prediction models
+│   └── __init__.py
+├── main.py               # Main application entry point
+├── run_dashboard.py      # Startup script with auto-install
+├── requirements.txt      # Python dependencies
+├── users.json           # User data storage
+├── LICENSE              # MIT License
+├── .gitignore          # Git ignore rules
+└── README.md           # Project documentation
+```
 ├── run_dashboard.py       # Startup script
 │
 ├── components/
