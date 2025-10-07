@@ -1,0 +1,13 @@
+streamlit
+pandas
+plotly
+yfinance
+requests
+numpy
+scikit-learn
+tensorflow
+bcrypt
+streamlit-option-menu
+datetime
+pytz
+plotly-express
