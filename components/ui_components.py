@@ -243,10 +243,10 @@ class UIComponents:
         
         /* Navigation button specific styling */
         .stButton > button[data-testid*="top_nav_"] {{
-            background: rgba(255, 255, 255, 0.95) !important;
-            border: 1px solid rgba(22, 160, 133, 0.3) !important;
+            background: linear-gradient(135deg, rgba(22, 160, 133, 0.8), rgba(52, 152, 219, 0.8)) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
             border-radius: 10px !important;
-            color: #2c3e50 !important;
+            color: #ffffff !important;
             font-weight: 600 !important;
             padding: 8px 16px !important;
             margin: 2px !important;
@@ -254,10 +254,12 @@ class UIComponents:
         }}
         
         .stButton > button[data-testid*="top_nav_"]:hover {{
-            background: rgba(255, 255, 255, 1) !important;
+            background: linear-gradient(135deg, rgba(22, 160, 133, 1), rgba(52, 152, 219, 1)) !important;
             transform: translateY(-1px) !important;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
-            border-color: rgba(22, 160, 133, 0.5) !important;
+            border-color: rgba(255, 255, 255, 0.5) !important;
+            color: #ffffff !important;
+        }}
         }}
         
         .stButton > button:hover {{
