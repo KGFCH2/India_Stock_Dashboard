@@ -29,6 +29,24 @@ class UIComponents:
         .stApp {{
             background: {background_gradient};
         }}
+
+        /* Force-remove any blue fills from Streamlit buttons and nav elements */
+        .stButton > button, .stButton > button[data-testid*="top_nav_"], .stButton > button[data-testid*="nav_"], .nav-button {{
+            background: transparent !important;
+            background-image: none !important;
+            background-color: transparent !important;
+            border: 1px solid rgba(255,255,255,0.06) !important;
+            box-shadow: none !important;
+            color: inherit !important;
+        }}
+
+        .stButton > button:hover, .stButton > button[data-testid*="top_nav_"]:hover, .stButton > button[data-testid*="nav_"]:hover, .nav-button:hover {{
+            background: rgba(255,255,255,0.03) !important;
+            background-image: none !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06) !important;
+            color: inherit !important;
+        }}
         
         /* Simple text styling for headings */
         h1, h2, h3, h4, h5, h6, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {{
@@ -158,36 +176,39 @@ class UIComponents:
             margin-right: 8px;
         }}
         
-        /* Navigation bar styling */
+        /* Navigation bar styling (made transparent to improve text visibility) */
         .nav-bar {{
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent !important;
+            backdrop-filter: blur(8px);
+            border: none !important;
             border-radius: 15px;
             padding: 10px 20px;
             margin: 10px 0;
             display: flex;
             justify-content: flex-end;
             gap: 15px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: none;
         }}
-        
-        .nav-button {{
-            background: rgba(255, 255, 255, 0.9) !important;
-            color: #2c3e50 !important;
-            border: none !important;
-            border-radius: 8px !important;
-            padding: 8px 16px !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
-            cursor: pointer !important;
-        }}
-        
-        .nav-button:hover {{
-            background: rgba(255, 255, 255, 1) !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
-        }}
+
+        /* Nav buttons: explicit light-blue gradient with dark text for best readability */
+            /* Nav buttons: remove blue backgrounds and use transparent background */
+            .nav-button {{
+                background: transparent !important;
+                color: inherit !important;
+                border: 1px solid rgba(255,255,255,0.06) !important;
+                border-radius: 10px !important;
+                padding: 8px 16px !important;
+                font-weight: 700 !important;
+                transition: all 0.18s ease !important;
+                cursor: pointer !important;
+                box-shadow: none !important;
+            }}
+
+            .nav-button:hover {{
+                background: rgba(255,255,255,0.03) !important;
+                transform: translateY(-1px) !important;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.06) !important;
+            }}
         
         @keyframes gradient {{
             0% {{ background-position: 0% 50%; }}
@@ -242,24 +263,82 @@ class UIComponents:
         }}
         
         /* Navigation button specific styling */
-        .stButton > button[data-testid*="top_nav_"] {{
-            background: linear-gradient(135deg, rgba(22, 160, 133, 0.8), rgba(52, 152, 219, 0.8)) !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            border-radius: 10px !important;
-            color: #ffffff !important;
-            font-weight: 600 !important;
-            padding: 8px 16px !important;
-            margin: 2px !important;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+        /* Top navigation Streamlit buttons: make transparent so labels (Analytics, Logout, Toggle) are visible */
+        /* Top navigation (Analytics / Logout / Toggle Theme): pill-shaped compact buttons */
+            .stButton > button[data-testid*="top_nav_"] {{
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: 8px !important;
+                background: transparent !important;
+                border: 1px solid rgba(255,255,255,0.06) !important;
+                border-radius: 999px !important; /* pill */
+                color: #74b9ff !important; /* sky color */
+                font-weight: 700 !important;
+                padding: 6px 10px !important;
+                margin: 2px !important;
+                box-shadow: none !important;
+                min-width: 0 !important;
+                white-space: nowrap !important;
+                font-size: 0.95rem !important;
+            }}
+
+            .stButton > button[data-testid*="top_nav_"]:hover {{
+                background: rgba(255,255,255,0.03) !important;
+                transform: translateY(-2px) scale(1.02) !important;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.08) !important;
+                border-color: rgba(255,255,255,0.12) !important;
+                color: #74b9ff !important;
+            }}
+
+        /* Slightly enlarge the emoji/icon in the top-nav buttons for clarity */
+        .stButton > button[data-testid*="top_nav_"] span:first-child {{
+            font-size: 1.15rem !important;
+            line-height: 1 !important;
         }}
         
-        .stButton > button[data-testid*="top_nav_"]:hover {{
-            background: linear-gradient(135deg, rgba(22, 160, 133, 1), rgba(52, 152, 219, 1)) !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
-            border-color: rgba(255, 255, 255, 0.5) !important;
-            color: #ffffff !important;
+        /* Main menu nav buttons (keys: nav_*) - ensure transparent background and visible text */
+            .stButton > button[data-testid*="nav_"] {{
+                background: transparent !important;
+                border: 1px solid rgba(255,255,255,0.06) !important;
+                border-radius: 8px !important;
+                color: inherit !important;
+                padding: 8px 12px !important;
+                margin: 2px !important;
+                box-shadow: none !important;
+            }}
+
+            .stButton > button[data-testid*="nav_"]:hover {{
+                background: rgba(255,255,255,0.03) !important;
+                transform: translateY(-1px) !important;
+                box-shadow: 0 6px 14px rgba(0,0,0,0.06) !important;
+                color: inherit !important;
+            }}
+
+        /* Force nav button label color: top-nav is sky, main nav remains dark */
+        .stButton > button[data-testid*="top_nav_"] span {{
+            color: #74b9ff !important;
+            font-weight: 700 !important;
         }}
+        .stButton > button[data-testid*="nav_"] span {{
+            color: #74b9ff !important;
+            font-weight: 700 !important;
+        }}
+
+        /* Sidebar styling: subtle light-blue background for contrast */
+            /* Sidebar styling: use card background or transparent to remove blue tint */
+            .css-1d391kg {{
+                background: {card_bg};
+                border-radius: 12px;
+                padding: 10px;
+                border: 1px solid {border_color};
+            }}
+
+            .stSelectbox > div > div {{
+                background: {card_bg};
+                color: inherit;
+                border-radius: 8px;
+                border: 1px solid {border_color};
+            }}
         }}
         
         .stButton > button:hover {{
@@ -366,6 +445,57 @@ class UIComponents:
         .price-neutral {{
             color: #ffa502;
             font-weight: bold;
+        }}
+        
+        /* FINAL OVERRIDE: ensure no blue/gradient fills remain on buttons */
+        /* Placed last so it wins over earlier rules and Streamlit theme defaults */
+        .stButton > button, .stButton > button[data-testid*="top_nav_"], .stButton > button[data-testid*="nav_"], .nav-button, button[role="button"] {{
+            background-image: none !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            color: #0b2545 !important; /* dark text for contrast */
+            border: 1px solid rgba(0,0,0,0.08) !important;
+            box-shadow: none !important;
+        }}
+
+        .stButton > button:hover, .stButton > button[data-testid*="top_nav_"]:hover, .stButton > button[data-testid*="nav_"]:hover, .nav-button:hover {{
+            background-image: none !important;
+            background: rgba(0,0,0,0.03) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+            color: #0b2545 !important;
+        }}
+
+        /* Aggressive attribute-based overrides to strip inline gradients or backgrounds
+           (covers Streamlit inline styles or theme-injected backgrounds) */
+        button[style*="linear-gradient"], .stButton > button[style*="linear-gradient"], button[style*="background"] {{
+            background-image: none !important;
+            background-color: transparent !important;
+            background: transparent !important;
+            color: #0b2545 !important;
+            border: 1px solid rgba(0,0,0,0.08) !important;
+            box-shadow: none !important;
+        }}
+
+        /* Also catch any button with a background-image or background-color inline set */
+        button[style*="background-image"], button[style*="background-color"] {{
+            background-image: none !important;
+            background-color: transparent !important;
+            background: transparent !important;
+            color: #0b2545 !important;
+            border: 1px solid rgba(0,0,0,0.08) !important;
+            box-shadow: none !important;
+        }}
+
+        /* TOP-NAV HARD OVERRIDE: completely remove blue button visuals for Analytics/Logout/Theme */
+        .stButton > button[data-testid*="top_nav_"], .nav-bar button, .nav-bar .stButton > button {{
+            background-image: none !important;
+            background-color: transparent !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            color: #74b9ff !important; /* keep sky text color */
+            padding: 6px 8px !important;
         }}
         </style>
         """

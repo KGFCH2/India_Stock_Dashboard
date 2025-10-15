@@ -59,23 +59,23 @@ class Authentication:
         st.markdown("""
         <style>
         .auth-container {
-            background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+            background: transparent;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
-        
+
         .auth-card {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
+            background: transparent !important;
+            backdrop-filter: blur(8px);
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255,255,255,0.06);
             padding: 40px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: none;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
         }
         
@@ -94,32 +94,33 @@ class Authentication:
         }
         
         .stTextInput > div > div > input {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            color: #2d3436;
-            backdrop-filter: blur(10px);
+            background: rgba(230, 240, 255, 0.9); /* light input for readability */
+            border: 1px solid rgba(200, 220, 255, 0.9);
+            border-radius: 8px;
+            color: #0b2545;
+            padding: 8px;
         }
         
         .stTextInput > div > div > input::placeholder {
             color: rgba(0, 0, 0, 0.6);
         }
         
+        /* Auth buttons: remove blue gradients and use transparent/button with subtle border */
         .stButton > button {
-            background: rgba(255, 255, 255, 0.9) !important;
-            border: 2px solid #2c3e50 !important;
-            border-radius: 25px !important;
-            color: #2c3e50 !important;
-            font-weight: bold !important;
-            padding: 0.5rem 2rem !important;
-            transition: all 0.3s ease !important;
+            background: transparent !important;
+            border: 1px solid rgba(255,255,255,0.08) !important;
+            border-radius: 12px !important;
+            color: inherit !important;
+            font-weight: 700 !important;
+            padding: 0.6rem 1.6rem !important;
+            transition: all 0.18s ease !important;
             width: 100% !important;
         }
-        
+
         .stButton > button:hover {
-            background: rgba(255, 255, 255, 1) !important;
+            background: rgba(255,255,255,0.03) !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3) !important;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08) !important;
         }
         
         /* Enhanced Gradient text with green+blue combination */

@@ -43,6 +43,19 @@ class StockDashboard:
         """Main application runner"""
         # Apply CSS styling
         self.ui.apply_custom_css()
+        # Inline override: force transparency on buttons (runs after component CSS)
+        st.markdown("""
+        <style>
+        button[style*="linear-gradient"], .stButton > button, .stButton > button[data-testid*="top_nav_"], .stButton > button[data-testid*="nav_"] {
+            background-image: none !important;
+            background-color: transparent !important;
+            background: transparent !important;
+            color: #0b2545 !important;
+            border: 1px solid rgba(0,0,0,0.08) !important;
+            box-shadow: none !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         
         # Authentication check
         if not st.session_state.authenticated:

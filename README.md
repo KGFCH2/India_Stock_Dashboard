@@ -1,6 +1,6 @@
-# Indian Stock Market Dashboard 📈
+# Indian Stock Market Dashboard 📈🇮🇳
 
-A beautiful, real-time stock market dashboard for Indian stocks with glassmorphism UI, user authentication, and ML-powered price predictions up to 2030.
+A beautiful, real-time stock market dashboard for Indian stocks with glassmorphism UI, user authentication, and ML-powered price predictions up to 2030. 🚀
 
 ## Features ✨
 
@@ -59,134 +59,193 @@ A beautiful, real-time stock market dashboard for Indian stocks with glassmorphi
 You can also use the startup script which will automatically install dependencies:
 ```bash
 python run_dashboard.py
+# Indian Stock Market Dashboard 📈
+
+A Streamlit-based dashboard that displays real-time Indian stock market data, interactive charts, basic user authentication, and ML-backed price predictions for exploration and educational purposes.
+
+This README provides a complete guide to setup, run, develop, and extend the project.
+
+## Table of contents
+
+- [Demo & screenshots](#demo--screenshots)
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Quick start (Windows, macOS, Linux)](#quick-start-windows-macos-linux)
+- [Project structure](#project-structure)
+- [Development notes](#development-notes)
+- [Testing & linting](#testing--linting)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+
+## Demo & screenshots
+
+Place screenshots or a short demo GIF in `/static/` and reference them here. Example:
+
+![Dashboard screenshot](static/dashboard_preview.png)
+
+If you'd like, I can add example screenshots to the repo.
+
+## Features
+
+- Real-time stock quotations (via `yfinance`)
+- Interactive Plotly charts (candlestick, volume, moving averages)
+- Technical indicators: RSI, MACD, Bollinger Bands
+- Local user authentication (stored in `users.json`) for demo purposes
+- Theme toggle (dark/light) and glassmorphism UI
+- ML prediction utilities (LSTM / Random Forest / Linear Regression) in `utils/prediction_model.py`
+
+## Tech stack
+
+- Python 3.8+
+- Streamlit for UI
+- yfinance for market data
+- Plotly for charts
+- Pandas / NumPy for data processing
+- TensorFlow / scikit-learn for models (optional, local)
+
+## Quick start (Windows, macOS, Linux)
+
+These steps get the project running locally.
+
+1. Clone the repository
+
+```cmd
+git clone https://github.com/KGFCH2/India_Stock_Dashboard.git
+cd "India_Stock_Dashboard"
 ```
 
-## Project Structure 📁
+2. Create and activate a virtual environment (recommended)
+
+Windows (cmd.exe):
+
+```cmd
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+macOS / Linux (bash/zsh):
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+3. Upgrade pip and install dependencies
+
+```cmd
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+4. Run the dashboard
+
+Recommended (uses `run_dashboard.py` helper):
+
+```cmd
+python run_dashboard.py
+```
+
+Or directly with Streamlit:
+
+```cmd
+streamlit run main.py
+```
+
+Then open http://localhost:8501 in your browser.
+
+Notes:
+- If `run_dashboard.py` fails to install optional ML packages, install them separately (see `requirements.txt`).
+- The app stores user data in `users.json` (local demo only) — do not use this for production authentication.
+
+## Project structure
+
+Top-level files and folders:
 
 ```
 India_Stock_Dashboard/
-├── .streamlit/
-│   └── config.toml         # Streamlit configuration
-├── components/             # Core application components
-│   ├── auth.py            # Authentication system
-│   ├── ui_components.py   # UI components and styling
-│   └── __init__.py
-├── pages/                 # Dashboard pages
-│   ├── dashboard_pages.py # Additional dashboard pages
-│   └── __init__.py
-├── utils/                 # Utility modules
-│   ├── stock_data.py     # Stock data fetching and processing
-│   ├── prediction_model.py # ML prediction models
-│   └── __init__.py
-├── main.py               # Main application entry point
-├── run_dashboard.py      # Startup script with auto-install
-├── requirements.txt      # Python dependencies
-├── users.json           # User data storage
-├── LICENSE              # MIT License
-├── .gitignore          # Git ignore rules
-└── README.md           # Project documentation
-```
-├── run_dashboard.py       # Startup script
-│
-├── components/
-│   ├── auth.py            # Authentication system
-│   └── ui_components.py   # UI components and styling
-│
-├── utils/
-│   ├── stock_data.py      # Stock data fetching utilities
-│   └── prediction_model.py # ML prediction models
-│
-├── pages/
-│   └── dashboard_pages.py # Additional dashboard pages
-│
-├── .streamlit/
-│   └── config.toml        # Streamlit configuration
-│
-└── static/                # Static assets (if any)
+├── components/         # UI helpers and authentication (auth.py, ui_components.py)
+├── pages/              # Streamlit pages (dashboard_pages.py)
+├── utils/              # Data fetching and ML helpers (stock_data.py, prediction_model.py)
+├── static/             # Images and static assets (optional)
+├── main.py             # Streamlit app entry point
+├── run_dashboard.py    # Helper to install deps and run the app
+├── requirements.txt    # Python dependencies
+├── users.json          # Local user datastore (demo)
+├── README.md
+└── LICENSE
 ```
 
-## Usage Guide 📖
+Files of interest:
 
-### 1. Authentication
-- Create a new account or login with existing credentials
-- User data is stored locally in `users.json`
+- `components/auth.py` — simple register/login functions using `users.json`.
+- `components/ui_components.py` — reusable UI blocks and CSS injection.
+- `pages/dashboard_pages.py` — the main pages for market overview, portfolio, news, analytics.
+- `utils/stock_data.py` — wrappers around `yfinance` and preprocessing utilities.
+- `utils/prediction_model.py` — model training/forecast helpers (can be heavy).
 
-### 2. Stock Selection
-- Use the sidebar to select from popular Indian stocks
-- Choose time periods (1D to 5Y) for analysis
+## Development notes
 
-### 3. Dashboard Features
-- **Stock Cards**: Flip cards showing current price, change, volume, and market cap
-- **Price Charts**: Interactive candlestick charts with moving averages
-- **Volume Analysis**: Volume charts with color-coded bars
-- **Technical Indicators**: RSI, Bollinger Bands, and more
-- **Future Predictions**: ML-powered price forecasts
+- Keep `requirements.txt` up-to-date when adding packages.
+- Use a virtual environment to avoid dependency conflicts.
+- ML model code is optional; heavy training should be done offline and models saved to disk.
 
-### 4. Theme Toggle
-- Click the theme toggle button to switch between dark/light modes
-- Glassmorphism effects adapt to the selected theme
+Running locally during development
 
-## Stock Prediction Models 🤖
+```cmd
+# activate your venv first
+streamlit run main.py
+```
 
-The dashboard uses multiple ML approaches:
+Adding a new page
 
-1. **LSTM Neural Networks**: For complex time series patterns
-2. **Random Forest**: For feature-based predictions
-3. **Linear Regression**: For trend analysis
-4. **Ensemble Methods**: Combining multiple models for better accuracy
+Create a new function in `pages/dashboard_pages.py` and import/use it from `main.py` where Streamlit constructs the navigation.
 
-## Supported Indian Stocks 🇮🇳
+Example skeleton for a new page (add to `pages/dashboard_pages.py`):
 
-- Reliance Industries (RELIANCE.NS)
-- Tata Consultancy Services (TCS.NS)
-- HDFC Bank (HDFCBANK.NS)
-- Infosys (INFY.NS)
-- ICICI Bank (ICICIBANK.NS)
-- State Bank of India (SBIN.NS)
-- Bharti Airtel (BHARTIARTL.NS)
-- ITC Limited (ITC.NS)
-- Kotak Mahindra Bank (KOTAKBANK.NS)
-- Hindustan Unilever (HINDUNILVR.NS)
-- And many more...
+```python
+def show_routes():
+   st.markdown('# Routes')
+   routes = [
+      {'id':'E-1','name':'Express 1'},
+      {'id':'AC-1','name':'AC Route 1'},
+      {'id':'SD-3','name':'Shuttle 3'},
+   ]
+   q = st.text_input('Filter routes (search by id or name)')
+   if q:
+      routes = [r for r in routes if q.lower() in r['id'].lower() or q.lower() in r['name'].lower()]
+   for r in routes:
+      st.write(f"{r['id']} — {r['name']}")
+```
 
-## Technical Indicators 📊
+I can add a `Routes` page and the filter input for you if you'd like — tell me whether to create `pages/routes.py` or add it to `pages/dashboard_pages.py`.
 
-- **Moving Averages**: SMA, EMA (20, 50, 200 periods)
-- **RSI**: Relative Strength Index (14 periods)
-- **MACD**: Moving Average Convergence Divergence
-- **Bollinger Bands**: With 2 standard deviations
-- **Volume Analysis**: Volume SMA and ratios
+## Testing & linting
 
-## Future Enhancements 🔮
+- There are no automated tests by default. Adding `pytest` and a few smoke tests is recommended.
+- For Python linting, use `flake8` or `pylint` and configure pre-commit hooks.
 
-- Portfolio tracking and management
-- Real-time alerts and notifications
-- News sentiment analysis
-- Options and derivatives data
-- Screener for stock filtering
-- Social trading features
-- Mobile app version
+## Troubleshooting
 
-## Contributing 🤝
+- If Streamlit fails to start, ensure the virtual environment is activated and `requirements.txt` was installed.
+- If data calls fail, check your network or yfinance rate limits.
+- If UI looks broken, clear Streamlit cache: `streamlit cache clear` (or delete `.streamlit` session files).
+
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Disclaimer ⚠️
-
-This dashboard is for educational and informational purposes only. Stock predictions are based on historical data and machine learning models, which may not be accurate. Always do your own research and consult with financial advisors before making investment decisions.
-
-## Support 💬
-
-If you encounter any issues or have questions, please open an issue on the GitHub repository.
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Make changes and add tests where appropriate
+4. Commit and push: `git commit -am "Add feature" && git push origin feature/my-feature`
+5. Open a Pull Request describing your change
 
 ---
 
-**Made with ❤️ for Indian Stock Market Enthusiasts**
+### 📚 Educational Purpose Disclaimer
+
+This demonstration is for educational purposes only.
+Built for project demonstration and learning purposes.
+Not intended for actual investment decisions. Please consult financial advisors for investment advice.
+
+🇮🇳 Made with ❤️ for Indian Stock Market Learning
+
+---
