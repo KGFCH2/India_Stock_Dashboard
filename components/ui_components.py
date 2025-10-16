@@ -241,13 +241,13 @@ class UIComponents:
         
         /* Simple Streamlit elements */
         .stSelectbox label, .stTextInput label, .stNumberInput label, .stDateInput label {{
-            color: #2c3e50;
+            color: #ffffff !important;
             font-weight: 600;
         }}
         
         /* Simple sidebar text */
         .css-1d391kg p, .css-1d391kg span, .css-1d391kg div {{
-            color: #2c3e50;
+            color: #ffffff !important;
             font-weight: 500;
         }}
         
@@ -335,7 +335,7 @@ class UIComponents:
 
             .stSelectbox > div > div {{
                 background: {card_bg};
-                color: inherit;
+                color: #ffffff !important;
                 border-radius: 8px;
                 border: 1px solid {border_color};
             }}
@@ -485,6 +485,35 @@ class UIComponents:
             color: #0b2545 !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
             box-shadow: none !important;
+        }}
+
+        /* GLOBAL: remove any button boxes / blue fills everywhere */
+        /* This last block aggressively forces transparency for all button-like elements */
+        button, .stButton > button, .stButton button, button[role="button"],
+        input[type="submit"], input[type="button"], input[type="reset"],
+        .stButton > button[data-testid*="top_nav_"], .stButton > button[data-testid*="nav_"],
+        .nav-button, .theme-toggle, .css-1kyxreq, .css-1offfwp {{
+            background-image: none !important;
+            background-color: transparent !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            color: inherit !important;
+            padding: 0 !important;
+            min-width: 0 !important;
+        }}
+
+        /* Ensure hover does not reintroduce fills */
+        button:hover, .stButton > button:hover, .stButton > button[data-testid*="top_nav_"]:hover,
+        .stButton > button[data-testid*="nav_"]:hover, .nav-button:hover, .theme-toggle:hover {{
+            background-image: none !important;
+            background-color: transparent !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            transform: none !important;
+            color: inherit !important;
         }}
 
         /* TOP-NAV HARD OVERRIDE: completely remove blue button visuals for Analytics/Logout/Theme */

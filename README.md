@@ -1,251 +1,116 @@
-# Indian Stock Market Dashboard 📈🇮🇳
+# 🤖 AI-Powered Chatbot (Beginner Friendly)
 
-A beautiful, real-time stock market dashboard for Indian stocks with glassmorphism UI, user authentication, and ML-powered price predictions up to 2030. 🚀
+🚀 Gemini-only FastAPI chatbot with streaming to the browser, optional lightweight web search context, light/dark theme toggle, and a simple demo login.
 
-## Features ✨
+## ✨ Features
+- 🗣️ Gemini-only streaming responses (google-generativeai)
+- 🔎 Optional “Use web search” context via DuckDuckGo Instant Answer (demo-only)
+- 🎨 Clean UI with avatars, chat bubbles, typing indicator, and feature bar:
+	- 🔍 Web Search toggle, 📋 Copy Transcript, 🧹 Clear, ℹ️ About, 🌓 Theme toggle
+- 🌗 Light/Dark theme (persistent)
+- 🔐 Demo login (cookie-based display name; not production auth)
+- ❤️‍🩹 Health endpoints and a Gemini connectivity check
+- 🖼️ Favicon (SVG) that looks sharp on high-DPI displays
 
-- **🔐 User Authentication**: Secure login/register system
-- **🌓 Dark/Light Mode**: Animated theme toggle
-- **💎 Glassmorphism UI**: Beautiful frosted glass effects with gradient colors
-- **🔄 Card Flip Animations**: Interactive card components with flip effects
-- **📊 Real-time Stock Data**: Live Indian stock market data using yfinance API
-- **📈 Interactive Charts**: Candlestick charts, volume charts, and technical indicators
-- **🔮 Future Predictions**: ML-powered stock price predictions up to 2030
-- **📱 Responsive Design**: Mobile-friendly responsive layout
-- **🎯 Technical Analysis**: RSI, MACD, Bollinger Bands, and more
-- **🏦 Market Overview**: Top gainers/losers, sector performance, market indices
+## 🧰 Requirements
+- 🪟 Windows, 🐍 Python 3.9+
 
-## Technologies Used 🛠️
+## 🛠️ Setup
 
-- **Frontend**: Streamlit with custom CSS
-- **Data**: yfinance API for Indian stock market data
-- **Visualization**: Plotly for interactive charts
-- **ML/AI**: TensorFlow/Keras LSTM, Random Forest, Linear Regression
-- **Data Processing**: Pandas, NumPy
-- **Authentication**: Custom authentication system with session management
-
-## Installation & Setup 🚀
-
-### Prerequisites
-- Python 3.8 or higher
-- pip (Python package installer)
-
-### Quick Start
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/KGFCH2/India_Stock_Dashboard.git
-   cd India_Stock_Dashboard
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the dashboard**:
-   ```bash
-   python run_dashboard.py
-   ```
-   
-   Or manually:
-   ```bash
-   streamlit run main.py
-   ```
-
-4. **Open your browser** and navigate to `http://localhost:8501`
-
-### Alternative Installation
-You can also use the startup script which will automatically install dependencies:
-```bash
-python run_dashboard.py
-# Indian Stock Market Dashboard 📈
-
-A Streamlit-based dashboard that displays real-time Indian stock market data, interactive charts, basic user authentication, and ML-backed price predictions for exploration and educational purposes.
-
-This README provides a complete guide to setup, run, develop, and extend the project.
-
-## Table of contents
-
-- [Demo & screenshots](#demo--screenshots)
-- [Features](#features)
-- [Tech stack](#tech-stack)
-- [Quick start (Windows, macOS, Linux)](#quick-start-windows-macos-linux)
-- [Project structure](#project-structure)
-- [Development notes](#development-notes)
-- [Testing & linting](#testing--linting)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-
-## Demo & screenshots
-
-Place screenshots or a short demo GIF in `/static/` and reference them here. Example:
-
-![Dashboard screenshot](static/dashboard_preview.png)
-
-If you'd like, I can add example screenshots to the repo.
-
-## Features
-
-- Real-time stock quotations (via `yfinance`)
-- Interactive Plotly charts (candlestick, volume, moving averages)
-- Technical indicators: RSI, MACD, Bollinger Bands
-- Local user authentication (stored in `users.json`) for demo purposes
-- Theme toggle (dark/light) and glassmorphism UI
-- ML prediction utilities (LSTM / Random Forest / Linear Regression) in `utils/prediction_model.py`
-
-## Tech stack
-
-- Python 3.8+
-- Streamlit for UI
-- yfinance for market data
-- Plotly for charts
-- Pandas / NumPy for data processing
-- TensorFlow / scikit-learn for models (optional, local)
-
-## Quick start (Windows, macOS, Linux)
-
-These steps get the project running locally.
-
-1. Clone the repository
+1) 🧩 Create and activate a virtual environment, then install dependencies.
 
 ```cmd
-git clone https://github.com/KGFCH2/India_Stock_Dashboard.git
-cd "India_Stock_Dashboard"
-```
-
-2. Create and activate a virtual environment (recommended)
-
-Windows (cmd.exe):
-
-```cmd
+REM From Windows cmd
+cd /d "D:\Vs Code\PROJECT\AI_Powered_Chatbot_New"
 python -m venv .venv
-.venv\Scripts\activate
+".venv\Scripts\python" -m pip install --upgrade pip
+".venv\Scripts\python" -m pip install -r requirements.txt
 ```
 
-macOS / Linux (bash/zsh):
+2) 🔑 Configure your Gemini API key.
 
+```cmd
+REM Copy the example and edit your key
+copy .env.example .env
+REM Open .env and set GEMINI_API_KEY=your_key_here
+```
+
+The app will default to `GEMINI_MODEL=gemini-2.0-flash`. If you have issues, try `gemini-1.5-flash`.
+
+3) ▶️ Run the app (pick a port that works on your machine; 8020 is used below).
+
+```cmd
+".venv\Scripts\python" -m uvicorn app.main:app --reload --port 8020
+```
+
+🔁 Open http://127.0.0.1:8020 and press Ctrl+F5 to hard refresh (ensures latest CSS/JS).
+
+### 🐚 Git Bash (alternative)
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-3. Upgrade pip and install dependencies
-
-```cmd
+cd "/d/Vs Code/PROJECT/AI_Powered_Chatbot_New"
+python -m venv .venv
+source .venv/Scripts/activate
 python -m pip install --upgrade pip
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --port 8020
 ```
 
-4. Run the dashboard
+## 💬 Using the UI
+- ⌨️ Type a message and press Enter (or click Send). Responses stream in real-time.
+- 🌐 Toggle Web Search to add a brief live context from DuckDuckGo IA (demo).
+- 📄 Copy Transcript copies visible bubbles to your clipboard.
+- 🧽 Clear only clears the current view (no server history).
+- ℹ️ About opens a brief info modal.
+- 🌓 Theme toggles light/dark and remembers your choice.
+- 🔓 Login lets you set a display name stored in a cookie (demo only). Logout clears it.
 
-Recommended (uses `run_dashboard.py` helper):
+## 🚪 Endpoints
+- 🏠 `GET /` – Chat UI
+- ✅ `GET /health` – Health check: `{status: "ok", gemini_key_present: true|false}`
+- 🔬 `GET /health/gemini` – Quick Gemini test (model + short sample or error)
+- 📨 `POST /api/chat` – Streaming chat endpoint
+	- Request body (example):
+
+```json
+{
+	"messages": [
+		{ "role": "system", "content": "You are a helpful assistant." },
+		{ "role": "user", "content": "Hello!" }
+	],
+	"use_web_search": false
+}
+```
+
+## 📁 Project structure
+- 🧭 `app/main.py` – FastAPI app, endpoints (`/`, `/health`, `/health/gemini`, `/api/chat`, `/login`, `/logout`)
+- 🖥️ `app/templates/index.html` – Chat UI
+- 🔑 `app/templates/login.html` – Simple name-only login form (demo)
+- 🎨 `app/static/style.css` – Styles (supports light/dark)
+- ⚙️ `app/static/main.js` – Client logic (streaming, UI controls)
+- 🏷️ `app/static/favicon.svg` – Favicon
+- 📄 `.env.example` – Example env vars (copy to `.env`)
+- 📦 `requirements.txt` – Dependencies
+- 🧾 `pyproject.toml` – Project metadata
+
+## 🩺 Troubleshooting
+- 🚫 Port permissions (WinError 10013): choose another port (e.g., 8021, 8023).
+- 🧭 PowerShell curl alias issues: prefer `curl.exe` when testing endpoints.
+	- 🔎 Example: `curl.exe http://127.0.0.1:8020/health`
+	- 📨 JSON post example:
 
 ```cmd
-python run_dashboard.py
+curl.exe -H "Content-Type: application/json" -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}],\"use_web_search\":false}" http://127.0.0.1:8020/api/chat
 ```
 
-Or directly with Streamlit:
+- If UI looks unchanged: hard refresh (Ctrl+F5). Assets are versioned (e.g., `?v=20251014-4`).
+- If responses don’t stream: check `/health` and `/health/gemini`. Ensure `GEMINI_API_KEY` is set in the same terminal used to start uvicorn.
+- Light mode text contrast: ensure latest CSS loaded (hard refresh). The bubbles use `color: var(--fg)`.
 
-```cmd
-streamlit run main.py
-```
+## 🧾 Notes
+- The login is for demo purposes only (cookie-based display name, no auth).
+- The web search is a minimal demo via DuckDuckGo IA. For production, use a robust retrieval pipeline (e.g., Tavily/Bing + proper citations).
 
-Then open http://localhost:8501 in your browser.
-
-Notes:
-- If `run_dashboard.py` fails to install optional ML packages, install them separately (see `requirements.txt`).
-- The app stores user data in `users.json` (local demo only) — do not use this for production authentication.
-
-## Project structure
-
-Top-level files and folders:
-
-```
-India_Stock_Dashboard/
-├── components/         # UI helpers and authentication (auth.py, ui_components.py)
-├── pages/              # Streamlit pages (dashboard_pages.py)
-├── utils/              # Data fetching and ML helpers (stock_data.py, prediction_model.py)
-├── static/             # Images and static assets (optional)
-├── main.py             # Streamlit app entry point
-├── run_dashboard.py    # Helper to install deps and run the app
-├── requirements.txt    # Python dependencies
-├── users.json          # Local user datastore (demo)
-├── README.md
-└── LICENSE
-```
-
-Files of interest:
-
-- `components/auth.py` — simple register/login functions using `users.json`.
-- `components/ui_components.py` — reusable UI blocks and CSS injection.
-- `pages/dashboard_pages.py` — the main pages for market overview, portfolio, news, analytics.
-- `utils/stock_data.py` — wrappers around `yfinance` and preprocessing utilities.
-- `utils/prediction_model.py` — model training/forecast helpers (can be heavy).
-
-## Development notes
-
-- Keep `requirements.txt` up-to-date when adding packages.
-- Use a virtual environment to avoid dependency conflicts.
-- ML model code is optional; heavy training should be done offline and models saved to disk.
-
-Running locally during development
-
-```cmd
-# activate your venv first
-streamlit run main.py
-```
-
-Adding a new page
-
-Create a new function in `pages/dashboard_pages.py` and import/use it from `main.py` where Streamlit constructs the navigation.
-
-Example skeleton for a new page (add to `pages/dashboard_pages.py`):
-
-```python
-def show_routes():
-   st.markdown('# Routes')
-   routes = [
-      {'id':'E-1','name':'Express 1'},
-      {'id':'AC-1','name':'AC Route 1'},
-      {'id':'SD-3','name':'Shuttle 3'},
-   ]
-   q = st.text_input('Filter routes (search by id or name)')
-   if q:
-      routes = [r for r in routes if q.lower() in r['id'].lower() or q.lower() in r['name'].lower()]
-   for r in routes:
-      st.write(f"{r['id']} — {r['name']}")
-```
-
-I can add a `Routes` page and the filter input for you if you'd like — tell me whether to create `pages/routes.py` or add it to `pages/dashboard_pages.py`.
-
-## Testing & linting
-
-- There are no automated tests by default. Adding `pytest` and a few smoke tests is recommended.
-- For Python linting, use `flake8` or `pylint` and configure pre-commit hooks.
-
-## Troubleshooting
-
-- If Streamlit fails to start, ensure the virtual environment is activated and `requirements.txt` was installed.
-- If data calls fail, check your network or yfinance rate limits.
-- If UI looks broken, clear Streamlit cache: `streamlit cache clear` (or delete `.streamlit` session files).
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Make changes and add tests where appropriate
-4. Commit and push: `git commit -am "Add feature" && git push origin feature/my-feature`
-5. Open a Pull Request describing your change
-
----
-
-### 📚 Educational Purpose Disclaimer
-
-This demonstration is for educational purposes only.
-Built for project demonstration and learning purposes.
-Not intended for actual investment decisions. Please consult financial advisors for investment advice.
-
-🇮🇳 Made with ❤️ for Indian Stock Market Learning
+## ▶️ VS Code
+- You can use the task “Run FastAPI app” to start the server.
 
 ---

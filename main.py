@@ -33,7 +33,7 @@ class StockDashboard:
         
         # Initialize session state
         if 'theme' not in st.session_state:
-            st.session_state.theme = 'dark'
+            st.session_state.theme = 'light'
         if 'authenticated' not in st.session_state:
             st.session_state.authenticated = False
         if 'username' not in st.session_state:
@@ -77,32 +77,30 @@ class StockDashboard:
             <div style="display: flex; gap: 15px; align-items: center;">
         ''', unsafe_allow_html=True)
         
-        # Create navigation buttons in a single row
-        nav_col1, nav_col2, nav_col3 = st.columns([1, 1, 1])
-        
-        with nav_col1:
-            if st.button("📊 Analytics", key="top_nav_analytics", help="Advanced Analytics", use_container_width=True):
-                st.session_state.current_page = 'analytics'
-                st.rerun()
-                
-        with nav_col2:
+        # Create navigation with Logout on the right (Analytics removed)
+        left_col, middle_col, right_col = st.columns([4, 1, 1])
+
+        with left_col:
+            # left area intentionally empty
+            st.markdown("<div style='height:1px'></div>", unsafe_allow_html=True)
+
+        with middle_col:
+            # placeholder for spacing
+            st.markdown("<div style='height:1px'></div>", unsafe_allow_html=True)
+
+        with right_col:
             if st.button("🚪 Logout", key="top_nav_logout", help="Logout", use_container_width=True):
                 st.session_state.authenticated = False
                 st.session_state.username = None
                 st.rerun()
-                
-        with nav_col3:
-            if st.button("🌓 Toggle Theme", key="top_nav_theme", help="Switch Theme", use_container_width=True):
-                st.session_state.theme = 'light' if st.session_state.theme == 'dark' else 'dark'
-                st.rerun()
-        
+
         st.markdown('</div></div>', unsafe_allow_html=True)
 
         # Navigation menu
         menu_options = {
             "🏠 Dashboard": "dashboard",
             "🏦 Market Overview": "market",
-            "💼 Portfolio": "portfolio", 
+            "💼 Portfolio": "portfolio",
             "📰 News": "news",
             "📊 Analytics": "analytics"
         }
@@ -230,31 +228,29 @@ class StockDashboard:
         except Exception as e:
             st.error(f"Error loading stock data: {str(e)}")
 
+        # predictions are generated and displayed in show_predictions()
+
     def show_predictions(self, stock_data):
         """Display future price predictions"""
-        st.markdown('<h2><span class="emoji-normal">🔮</span> <span class="gradient-title">Future Price Predictions (Till 2030)</span></h2>', unsafe_allow_html=True)
-        
         try:
             predictions = self.predictor.predict_future_prices(
                 stock_data,
                 st.session_state.selected_stock,
                 years_ahead=5
             )
-            
+
             if predictions is not None:
-                # Create prediction chart
                 fig_prediction = self.ui.create_prediction_chart(
                     stock_data,
                     predictions,
                     st.session_state.selected_stock_name
                 )
                 st.plotly_chart(fig_prediction, use_container_width=True)
-                
                 # Prediction summary
                 self.ui.display_prediction_summary(predictions)
             else:
                 st.warning("Unable to generate predictions at this time.")
-                
+
         except Exception as e:
             st.error(f"Error generating predictions: {str(e)}")
 
