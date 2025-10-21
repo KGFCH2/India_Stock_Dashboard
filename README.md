@@ -1,116 +1,88 @@
-# 🤖 AI-Powered Chatbot (Beginner Friendly)
+# 📈 Indian Stock Market Dashboard
 
-🚀 Gemini-only FastAPI chatbot with streaming to the browser, optional lightweight web search context, light/dark theme toggle, and a simple demo login.
+An interactive Streamlit dashboard showcasing Indian stock market data, charts, technical indicators, and simple future price predictions. Built for demonstration and educational purposes.
 
-## ✨ Features
-- 🗣️ Gemini-only streaming responses (google-generativeai)
-- 🔎 Optional “Use web search” context via DuckDuckGo Instant Answer (demo-only)
-- 🎨 Clean UI with avatars, chat bubbles, typing indicator, and feature bar:
-	- 🔍 Web Search toggle, 📋 Copy Transcript, 🧹 Clear, ℹ️ About, 🌓 Theme toggle
-- 🌗 Light/Dark theme (persistent)
-- 🔐 Demo login (cookie-based display name; not production auth)
-- ❤️‍🩹 Health endpoints and a Gemini connectivity check
-- 🖼️ Favicon (SVG) that looks sharp on high-DPI displays
+## ✨ Key features
 
-## 🧰 Requirements
-- 🪟 Windows, 🐍 Python 3.9+
+- 🔎 Real-time and historical price visualization using Yahoo Finance (`yfinance`).
+- 📊 Interactive Plotly charts (candlestick, volume, prediction overlays).
+- 🧮 Technical indicators: moving averages, RSI, Bollinger Bands.
+- 🤖 Simple ensemble-based prediction fallback (RandomForest + trend models). LSTM helper code included.
+- 🔐 User authentication (local JSON storage) with registration and login UI.
+- 🎨 Clean, glassmorphism-inspired UI components and custom CSS.
 
-## 🛠️ Setup
+## ⚙️ Prerequisites
 
-1) 🧩 Create and activate a virtual environment, then install dependencies.
+- Python 3.10+ (tested with 3.10 — newer versions should work).
+- On Windows, a standard Command Prompt (`cmd.exe`) is used in the examples below.
 
-```cmd
-REM From Windows cmd
-cd /d "D:\Vs Code\PROJECT\AI_Powered_Chatbot_New"
+## 🛠️ Installation
+
+1. Clone or copy the project to your machine.
+
+2. From the project root directory (where `requirements.txt` lives), create and activate a virtual environment (recommended):
+
+```bat
 python -m venv .venv
-".venv\Scripts\python" -m pip install --upgrade pip
-".venv\Scripts\python" -m pip install -r requirements.txt
+.venv\Scripts\activate
 ```
 
-2) 🔑 Configure your Gemini API key.
+3. Install required Python packages:
 
-```cmd
-REM Copy the example and edit your key
-copy .env.example .env
-REM Open .env and set GEMINI_API_KEY=your_key_here
-```
-
-The app will default to `GEMINI_MODEL=gemini-2.0-flash`. If you have issues, try `gemini-1.5-flash`.
-
-3) ▶️ Run the app (pick a port that works on your machine; 8020 is used below).
-
-```cmd
-".venv\Scripts\python" -m uvicorn app.main:app --reload --port 8020
-```
-
-🔁 Open http://127.0.0.1:8020 and press Ctrl+F5 to hard refresh (ensures latest CSS/JS).
-
-### 🐚 Git Bash (alternative)
-```bash
-cd "/d/Vs Code/PROJECT/AI_Powered_Chatbot_New"
-python -m venv .venv
-source .venv/Scripts/activate
-python -m pip install --upgrade pip
+```bat
 python -m pip install -r requirements.txt
-python -m uvicorn app.main:app --port 8020
 ```
 
-## 💬 Using the UI
-- ⌨️ Type a message and press Enter (or click Send). Responses stream in real-time.
-- 🌐 Toggle Web Search to add a brief live context from DuckDuckGo IA (demo).
-- 📄 Copy Transcript copies visible bubbles to your clipboard.
-- 🧽 Clear only clears the current view (no server history).
-- ℹ️ About opens a brief info modal.
-- 🌓 Theme toggles light/dark and remembers your choice.
-- 🔓 Login lets you set a display name stored in a cookie (demo only). Logout clears it.
+> ⚠️ Note: The repository's `requirements.txt` includes heavy packages (e.g. TensorFlow). If you only want the interactive dashboard without training models locally, consider creating a lighter requirements file that omits ML-specific packages.
 
-## 🚪 Endpoints
-- 🏠 `GET /` – Chat UI
-- ✅ `GET /health` – Health check: `{status: "ok", gemini_key_present: true|false}`
-- 🔬 `GET /health/gemini` – Quick Gemini test (model + short sample or error)
-- 📨 `POST /api/chat` – Streaming chat endpoint
-	- Request body (example):
+## ▶️ Running the dashboard
 
-```json
-{
-	"messages": [
-		{ "role": "system", "content": "You are a helpful assistant." },
-		{ "role": "user", "content": "Hello!" }
-	],
-	"use_web_search": false
-}
+There are two easy ways to run the app.
+
+1) Use the included startup helper (recommended):
+
+```bat
+python run_dashboard.py
 ```
 
-## 📁 Project structure
-- 🧭 `app/main.py` – FastAPI app, endpoints (`/`, `/health`, `/health/gemini`, `/api/chat`, `/login`, `/logout`)
-- 🖥️ `app/templates/index.html` – Chat UI
-- 🔑 `app/templates/login.html` – Simple name-only login form (demo)
-- 🎨 `app/static/style.css` – Styles (supports light/dark)
-- ⚙️ `app/static/main.js` – Client logic (streaming, UI controls)
-- 🏷️ `app/static/favicon.svg` – Favicon
-- 📄 `.env.example` – Example env vars (copy to `.env`)
-- 📦 `requirements.txt` – Dependencies
-- 🧾 `pyproject.toml` – Project metadata
+This script will attempt to install requirements (if not already present) and then start Streamlit on port 8501.
 
-## 🩺 Troubleshooting
-- 🚫 Port permissions (WinError 10013): choose another port (e.g., 8021, 8023).
-- 🧭 PowerShell curl alias issues: prefer `curl.exe` when testing endpoints.
-	- 🔎 Example: `curl.exe http://127.0.0.1:8020/health`
-	- 📨 JSON post example:
+2) Run Streamlit directly:
 
-```cmd
-curl.exe -H "Content-Type: application/json" -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Hello!\"}],\"use_web_search\":false}" http://127.0.0.1:8020/api/chat
+```bat
+streamlit run main.py --server.port=8501
 ```
 
-- If UI looks unchanged: hard refresh (Ctrl+F5). Assets are versioned (e.g., `?v=20251014-4`).
-- If responses don’t stream: check `/health` and `/health/gemini`. Ensure `GEMINI_API_KEY` is set in the same terminal used to start uvicorn.
-- Light mode text contrast: ensure latest CSS loaded (hard refresh). The bubbles use `color: var(--fg)`.
+Then open `http://localhost:8501` in your browser.
 
-## 🧾 Notes
-- The login is for demo purposes only (cookie-based display name, no auth).
-- The web search is a minimal demo via DuckDuckGo IA. For production, use a robust retrieval pipeline (e.g., Tavily/Bing + proper citations).
+## 📁 Project layout
 
-## ▶️ VS Code
-- You can use the task “Run FastAPI app” to start the server.
+- `main.py` — Streamlit app entrypoint and application flow (authentication, navigation, pages).
+- `run_dashboard.py` — Helper script to install requirements and launch the Streamlit app.
+- `requirements.txt` — Python dependencies used by the project.
+- `users.json` — Local JSON file used for storing simple user accounts (created at runtime).
+- `components/` — UI and authentication components:
+  - `auth.py` — Authentication UI and user management (local JSON storage).
+  - `ui_components.py` — Custom UI helpers and Plotly chart builders.
+- `pages/` — Dashboard page definitions and content sections.
+- `utils/` — Support utilities:
+  - `stock_data.py` — Data fetching and caching using `yfinance`.
+  - `prediction_model.py` — Prediction utilities (RandomForest/Linear trend and LSTM scaffolding).
+
+## 📌 Usage notes & tips
+
+- ⚠️ The authentication system stores user data in `users.json` in the project directory. This is for demo only — do not use in production.
+- 🔍 Predictions provided by `PredictionModel` are illustrative and should not be used for financial decisions.
+- 🔁 If you plan to deploy or share the app, remove any automatic pip-install behavior and pin package versions appropriately.
+
+## 🛟 Troubleshooting
+
+- ❗ If Streamlit fails to start, ensure your virtual environment is activated and dependencies are installed.
+- 🌐 If `yfinance` returns empty data for a ticker, check your internet connection and the ticker symbol (NSE tickers use the `.NS` suffix, e.g. `RELIANCE.NS`).
+- 🪟 On Windows, if the `streamlit` command is not found after installing requirements, ensure your environment's `Scripts` directory is on PATH or use `python -m streamlit run main.py`.
+
+## 🤝 Contributing
+
+- This project is intended as an educational demo. Contributions are welcome — please open issues or pull requests with focused changes (bug fixes, doc updates, small features).
 
 ---
